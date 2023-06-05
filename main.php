@@ -23,31 +23,28 @@ if (!in_array($page, [1, 2, 3])) {
 </head>
 
 <body>
+    <h1>Pagrindinis puslapis</h1>
 
-<nav>
-    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php?p=1" >Pagrindinis puslapis</a>
-    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php?p=2" >Naujos sąskaitos sukūrimas</a>
-    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyIn.php?p=3" >Pridėti lėšų</a>
-    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyOut.php?p=4" >Nuskaičiuoti lėšas</a>
-</nav>
+    <nav>
+        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php?p=1">Naujos sąskaitos sukūrimas</a>
+        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyIn.php?p=2">Pridėti lėšų</a>
+        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyOut.php?p=3">Nuskaičiuoti lėšas</a>
+    </nav>
 
-<?php if($page == 1) : ?>
+    <?php if ($page == 1): ?>
 
-<h1>Pagrindinis puslapis</h1>
+        <h1>Page 1</h1>
 
-<?php elseif($page == 2) : ?>
 
-<h1>Page 2</h1>
+    <?php elseif ($page == 2): ?>
 
-<?php elseif($page ==3) : ?>
+        <h1>Page 2</h1>
 
-<h1>Page 3</h1>
+    <?php else: ?>
 
-<?php else : ?>
+        <h1>Page 3</h1>
 
-<h1>Page 4</h1>
-
-<?php endif ?>
+    <?php endif ?>
 
 </body>
 

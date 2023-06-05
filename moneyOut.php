@@ -11,7 +11,7 @@
 
 <body>
 
-
+    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php">Grįžti į pagrindinį puslapį</a>
 </body>
 
 </html>
