@@ -1,28 +1,27 @@
 <?php
+session_start();
+
+
+
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $name = $_POST['vardas'];
     $lastName = $_POST['pavarde'];
-    $bankAcount = $_POST['saskaitosNumeris'];
-    $personalCode = $_POST['asmensKodas'];
+    $personalId = $_POST['asmensKodas'];
+    $accountNumber = $_POST['saskaitosNumeris'];
     $balance = $_POST['likutis'] ?? 0;
 
-    file_put_contents(__DIR__ . '/usersData.json', json_encode([$name, $lastName, $bankAcount, $personalCode, $balance]));
+    
 
-    header('Location:http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
-    die();
-
-} //else {
-   // if (!isset($_GET['vardas'])) {
-   //     [$name, $lastName, $bankAcount, $personalCode, $balance] = json_decode(file_GET_contents(__DIR__ . '/usersData.json'));
-   // } else {
-   //     $name = $_GET['vardas'];
-   //     $lastName = $_GET['pavarde'];
-//$bankAcount = $_GET['saskaitosNumeris'];
-   //     $personalCode = $_GET['asmensKodas'];
-   //     $balance = $_GET['likutis'] ?? 0;
- //   }
-//}
+    $data = file_get_contents(__DIR__ . '/usersData.json');
+    $data = $data ? json_decode($data) : [];
+    $data[] = ['vardas' => $name, 'pavarde' => $lastName, 'asmensKodas' => $personalId, 'saskaitosNumeris' => $accountNumber, 'likutis' => $balance];
+    $data = json_encode($data);
+    file_put_contents(__DIR__ . '/usersData.json', $data);
+    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
+    die;
+}
 ?>
 
 <!DOCTYPE html>
@@ -51,11 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div>
                 <label>Saskaitos numeris</label>
-                <input type="text" name="saskaitosNumeris">
+                <input type="number" name="saskaitosNumeris">
             </div>
             <div>
                 <label>Asmens kodas</label>
-                <input type="text" name="asmensKodas">
+                <input type="number" name="asmensKodas">
             </div>
             <div>
                 <button type="submit">Sukurti naują saskaitą</button>

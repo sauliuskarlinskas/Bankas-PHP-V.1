@@ -1,12 +1,16 @@
 <?php
+session_start();
 
-$page = (int) ($_GET['p'] ?? 1);
+//$page = (int) ($_GET['p'] ?? 1);
 
-if (!in_array($page, [1, 2, 3])) {
-    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
-    die();
-}
+//if (!in_array($page, [1, 2, 3])) {
+//    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
+//    die();
+//}
 
+$jsonFile = file_get_contents(__DIR__ . '/usersData.json');
+
+$dataFromJson = json_decode($jsonFile, 1);
 
 
 ?>
@@ -31,20 +35,10 @@ if (!in_array($page, [1, 2, 3])) {
         <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyOut.php?p=3">Nuskaičiuoti lėšas</a>
     </nav>
 
-    <?php if ($page == 1): ?>
+    <li>
+        <? echo $dataFromJson ?>
 
-        <h1>Page 1</h1>
-
-
-    <?php elseif ($page == 2): ?>
-
-        <h1>Page 2</h1>
-
-    <?php else: ?>
-
-        <h1>Page 3</h1>
-
-    <?php endif ?>
+    </li>
 
 </body>
 
