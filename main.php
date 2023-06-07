@@ -1,18 +1,9 @@
 <?php
-session_start();
-
-//$page = (int) ($_GET['p'] ?? 1);
-
-//if (!in_array($page, [1, 2, 3])) {
-//    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
-//    die();
-//}
-
-$jsonFile = file_get_contents(__DIR__ . '/usersData.json');
-
-$dataFromJson = json_decode($jsonFile, 1);
 
 
+$usersData = file_get_contents(__DIR__ . '/usersData.json');
+
+$usersData = $usersData ? json_decode($usersData, 1) : [];
 ?>
 
 <!DOCTYPE html>
@@ -28,17 +19,46 @@ $dataFromJson = json_decode($jsonFile, 1);
 
 <body>
     <h1>Pagrindinis puslapis</h1>
+    <div>
+        <nav>
+            <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php?p=1">Naujos sąskaitos sukūrimas</a>
 
-    <nav>
-        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php?p=1">Naujos sąskaitos sukūrimas</a>
-        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyIn.php?p=2">Pridėti lėšų</a>
-        <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/moneyOut.php?p=3">Nuskaičiuoti lėšas</a>
-    </nav>
+        </nav>
+    </div>
+    <div>
+        <table>
+            <?php foreach ($usersData as $userData): ?>
+                <tr>
 
-    <li>
-        <? echo $dataFromJson ?>
+                    <td>
+                        <?= $userData['vardas']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['pavarde']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['asmensKodas']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['saskaitosNumeris']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['likutis']; ?>
+                    </td>
+                    <td>
+                        <form action="./deleteAccount.php?id=<?= $userData['id'] ?>" method="post">
+                            <button type="submit" >delete</button>
+                            <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/editBalance.php">edit</a>
+                        </form>
+                    </td>
+                </tr>
+            <?php endforeach ?>
+        </table>
 
-    </li>
+    </div>
+
+
+
 
 </body>
 

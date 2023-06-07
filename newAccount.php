@@ -1,8 +1,4 @@
 <?php
-session_start();
-
-
-
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -12,13 +8,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $accountNumber = $_POST['saskaitosNumeris'];
     $balance = $_POST['likutis'] ?? 0;
 
-    
+    $usersData = file_get_contents(__DIR__ . '/usersData.json');
+    $usersData = $usersData ? json_decode($usersData, 1) : [];
 
-    $data = file_get_contents(__DIR__ . '/usersData.json');
-    $data = $data ? json_decode($data) : [];
-    $data[] = ['vardas' => $name, 'pavarde' => $lastName, 'asmensKodas' => $personalId, 'saskaitosNumeris' => $accountNumber, 'likutis' => $balance];
-    $data = json_encode($data);
-    file_put_contents(__DIR__ . '/usersData.json', $data);
+    $usersData[] = [
+        'vardas' => $name,
+        'pavarde' => $lastName,
+        'asmensKodas' => $personalId,
+        'saskaitosNumeris' => $accountNumber,
+        'likutis' => $balance,
+        'id' => rand(100000000, 999999999)
+    ];
+    $usersData = json_encode($usersData);
+    file_put_contents(__DIR__ . '/usersData.json', $usersData);
     header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
     die;
 }
