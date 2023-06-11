@@ -2,21 +2,21 @@
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-    $name = $_POST['vardas'];
-    $lastName = $_POST['pavarde'];
-    $personalId = $_POST['asmensKodas'];
-    $accountNumber = $_POST['saskaitosNumeris'];
-    $balance = $_POST['likutis'] ?? 0;
+    $name = $_POST['name'];
+    $lastName = $_POST['lastName'];
+    $personalId = $_POST['personalId'];
+    $accountNumber = ['accountNumber'];
+    $balance = $_POST['balance'] ?? 0;
 
     $usersData = file_get_contents(__DIR__ . '/usersData.json');
     $usersData = $usersData ? json_decode($usersData, 1) : [];
 
     $usersData[] = [
-        'vardas' => $name,
-        'pavarde' => $lastName,
-        'asmensKodas' => $personalId,
-        'saskaitosNumeris' => $accountNumber,
-        'likutis' => $balance,
+        'name' => $name,
+        'lastName' => $lastName,
+        'personalId' => $personalId,
+        'accountNumber' => rand(10000000000, 99999999999),
+        'balance' => $balance,
         'id' => rand(100000000, 999999999)
     ];
     $usersData = json_encode($usersData);
@@ -33,39 +33,43 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>newAccount</title>
 
 </head>
 
-<body>
-    <h1>Naujos sąskaitos sukūrimas</h1>
+<body style="background-color:grey;">
+    <div class="container">
+        <h1 class="col m-5">Naujos sąskaitos sukūrimas</h1>
+        <div class="col m-5">
+            <fieldset>
+                <form action="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php" method="post">
+                    <div>
+                        <label class="form-label">Vardas</label>
+                        <input type="text" name="name" class="form-control">
+                    </div>
+                    <div>
+                        <label class="form-label">Pavardė</label>
+                        <input type="text" name="lastName" class="form-control">
+                    </div>
+                    
+                    <div>
+                        <label class="form-label">Asmens kodas</label>
+                        <input type="number" name="personalId" class="form-control">
+                    </div>
+                    <div class="col m-3">
+                        <button type="submit" class="btn btn-success">Sukurti naują saskaitą</button>
+                    </div>
 
-    <fieldset>
-        <form action="http://localhost/zuikiai/Bankas%20PHP%20V.1/newAccount.php" method="post">
-            <div>
-                <label>Vardas</label>
-                <input type="text" name="vardas">
-            </div>
-            <div>
-                <label>Pavardė</label>
-                <input type="text" name="pavarde">
-            </div>
-            <div>
-                <label>Saskaitos numeris</label>
-                <input type="number" name="saskaitosNumeris">
-            </div>
-            <div>
-                <label>Asmens kodas</label>
-                <input type="number" name="asmensKodas">
-            </div>
-            <div>
-                <button type="submit">Sukurti naują saskaitą</button>
-            </div>
-
-        </form>
-    </fieldset>
-
-    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php">Grįžti į pagrindinį puslapį</a>
+                </form>
+            </fieldset>
+        </div>
+        <div>
+            <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php" class="btn btn-info">Grįžti į pagrindinį
+                puslapį</a>
+        </div>
+    </div>
 </body>
 
 </html>

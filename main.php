@@ -18,7 +18,7 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color:grey;">
     <div class="container">
         <div class="col m-5">
             <h1>Pagrindinis puslapis</h1>
@@ -47,25 +47,28 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
                     <tbody>
                         <tr>
                             <td>
-                                <?= $userData['vardas']; ?>
+                                <?= $userData['name']; ?>
                             </td>
                             <td>
-                                <?= $userData['pavarde']; ?>
+                                <?= $userData['lastName']; ?>
                             </td>
                             <td>
-                                <?= $userData['asmensKodas']; ?>
+                                <?= $userData['personalId']; ?>
                             </td>
                             <td>
-                                <?= $userData['saskaitosNumeris']; ?>
+                                LT:
+                                <?= $userData['accountNumber']; ?>
                             </td>
                             <td>
-                                <?= $userData['likutis']; ?>
+                                <?= $userData['balance']; ?>
                             </td>
                             <td>
                                 <form action="./deleteAccount.php?id=<?= $userData['id'] ?>" method="post">
                                     <button type="submit" class="btn btn-danger">delete</button>
-                                    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/editBalance.php"
-                                        class="btn btn-secondary">edit</a>
+                                    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/addMoney.php?id=<?= $userData['id'] ?>"
+                                        class="btn btn-success">Pridėti lėšų</a>
+                                    <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/withdrawMoney.php?id=<?= $userData['id'] ?>"
+                                        class="btn btn-primary">Nuimti lėšų</a>
                                 </form>
                             </td>
                         </tr>
