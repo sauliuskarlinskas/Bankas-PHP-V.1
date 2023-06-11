@@ -37,7 +37,7 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
                 <thead>
                     <tr>
                         <th scope="col">Vardas</th>
-                        <th scope="col">Pavarde</th>
+                        <th scope="col">Pavardė</th>
                         <th scope="col">Asmens kodas</th>
                         <th scope="col">Saskaitos numeris</th>
                         <th scope="col">Likutis</th>

@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $usersData = json_encode($usersData);
         file_put_contents(__DIR__ . '/usersData.json', $usersData);
-        header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
+        header('Location: ./addMoney.php?id=' . $userDataId);
         die;
 
 
@@ -60,11 +60,44 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         <div class="col m-5">
             <h2>Lėšų pridėjimas</h2>
         </div>
+
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Vardas</th>
+                    <th scope="col">Pavardė</th>
+                    <th scope="col">Asmens kodas</th>
+                    <th scope="col">Saskaitos numeris</th>
+                    <th scope="col">Likutis</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <?= $userData['name']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['lastName']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['personalId']; ?>
+                    </td>
+                    <td>
+                        LT:
+                        <?= $userData['accountNumber']; ?>
+                    </td>
+                    <td>
+                        <?= $userData['balance']; ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
         <div class="col m-5">
             <form action="./addMoney.php?id=<?= $userData['id'] ?>" method="post">
                 <label>Pridėti lėšų</label>
                 <input type="number" name="amount">
-                <button type="submit" class="btn btn-success">Išsaugoti</button>
+                <button type="submit" class="btn btn-success">Pridėti</button>
             </form>
         </div>
         <div class="col m-5">
