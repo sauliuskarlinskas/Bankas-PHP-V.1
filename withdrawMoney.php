@@ -1,5 +1,7 @@
 <?php
 
+$info = $_GET['info'] ?? 0;
+
 $usersData = file_get_contents(__DIR__ . '/usersData.json');
 $usersData = $usersData ? json_decode($usersData, 1) : [];
 
@@ -24,7 +26,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($u['id'] == $userDataId) {
                 if ($u['balance'] >= $_POST['amount']) {
                     $u['balance'] -= $amount;
-
+                } else {
+                    header('Location: ./withdrawMoney.php?id=' . $userDataId . '&info=4');
+                    die;
                 }
             }
         }
@@ -33,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $usersData = json_encode($usersData);
         file_put_contents(__DIR__ . '/usersData.json', $usersData);
-        header('Location: ./withdrawMoney.php?id=' . $userDataId);
+        header('Location: ./withdrawMoney.php?id=' . $userDataId . '&info=10');
         die;
     }
 
@@ -87,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <?= $userData['accountNumber']; ?>
                     </td>
                     <td>
-                        <?= $userData['balance']; ?>
+                        <?= $userData['balance']; ?>€
                     </td>
                 </tr>
             </tbody>
@@ -100,6 +104,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="number" name="amount">
                 <button type="submit" class="btn btn-success">Nuimti</button>
             </form>
+        </div>
+        <div class="col m-5">
+            <?php require __DIR__ . '/infoMsg.php' ?>
         </div>
         <div class="col m-5">
             <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php" class="btn btn-info">Grįžti į pagrindinį

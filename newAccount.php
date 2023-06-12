@@ -1,5 +1,7 @@
 <?php
 
+$info = $_GET['info'] ?? 0;
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $name = $_POST['name'];
@@ -7,6 +9,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $personalId = $_POST['personalId'];
     $accountNumber = ['accountNumber'];
     $balance = $_POST['balance'] ?? 0;
+
+    if (strlen($name) < 3 || strlen($lastName) < 3) {
+        header('Location: ./newAccount.php?info=5');
+        die;
+    }
+
+    if (!ctype_digit($personalId) || strlen(trim($personalId)) !== 11) {
+        header('Location: ./newAccount.php?info=6');
+        die;
+    }
+
+   
 
     $usersData = file_get_contents(__DIR__ . '/usersData.json');
     $usersData = $usersData ? json_decode($usersData, 1) : [];
@@ -21,7 +35,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ];
     $usersData = json_encode($usersData);
     file_put_contents(__DIR__ . '/usersData.json', $usersData);
-    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php');
+    header('Location: http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php?info=1');
+
     die;
 }
 ?>
@@ -53,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label class="form-label">Pavardė</label>
                         <input type="text" name="lastName" class="form-control">
                     </div>
-                    
+
                     <div>
                         <label class="form-label">Asmens kodas</label>
                         <input type="number" name="personalId" class="form-control">
@@ -65,11 +80,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </form>
             </fieldset>
         </div>
+        <div class="col m-5">
+            <?php require __DIR__ . '/infoMsg.php' ?>
+        </div>
         <div>
             <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/main.php" class="btn btn-info">Grįžti į pagrindinį
                 puslapį</a>
         </div>
     </div>
+
 </body>
 
 </html>

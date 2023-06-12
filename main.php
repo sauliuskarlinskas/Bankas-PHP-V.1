@@ -1,5 +1,7 @@
 <?php
 
+$info = $_GET['info'] ?? 0;
+
 
 $usersData = file_get_contents(__DIR__ . '/usersData.json');
 
@@ -21,7 +23,7 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
 <body style="background-color:grey;">
     <div class="container">
         <div class="col m-5">
-            <h1>Pagrindinis puslapis</h1>
+            <h1 style="color:crimson; font-weight: bold; text-decoration: underline;" class="display-1">B A N K E L I S</h1>
         </div>
         <div class="col m-5">
             <nav>
@@ -60,11 +62,11 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
                                 <?= $userData['accountNumber']; ?>
                             </td>
                             <td>
-                                <?= $userData['balance']; ?>
+                                <?= $userData['balance']; ?>€
                             </td>
                             <td>
                                 <form action="./deleteAccount.php?id=<?= $userData['id'] ?>" method="post">
-                                    <button type="submit" class="btn btn-danger">delete</button>
+                                    <button type="submit" class="btn btn-danger">Ištrinti saskaita</button>
                                     <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/addMoney.php?id=<?= $userData['id'] ?>"
                                         class="btn btn-success">Pridėti lėšų</a>
                                     <a href="http://localhost/zuikiai/Bankas%20PHP%20V.1/withdrawMoney.php?id=<?= $userData['id'] ?>"
@@ -76,6 +78,9 @@ $usersData = $usersData ? json_decode($usersData, 1) : [];
                     </tbody>
                 <?php endforeach ?>
             </table>
+        </div>
+        <div class="col m-5">
+            <?php require __DIR__ . '/infoMsg.php' ?>
         </div>
     </div>
 
